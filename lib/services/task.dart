@@ -4,9 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class TaskServices {
   ///Create Task
   Future createTask(TaskModel model) async {
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection('task').doc();
     return await FirebaseFirestore.instance
         .collection('task')
-        .add(model.toJson());
+        .doc(docRef.id)
+        .set(model.toJson(docRef.id));
   }
 
   ///Update Task
@@ -59,7 +62,7 @@ class TaskServices {
         .where('isCompleted', isEqualTo: false)
         .snapshots()
         .map((taskList) => taskList.docs
-        .map((task) => TaskModel.fromJson(task.data()))
-        .toList());
+            .map((task) => TaskModel.fromJson(task.data()))
+            .toList());
   }
 }
