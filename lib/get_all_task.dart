@@ -1,5 +1,6 @@
 import 'package:ammar_sajjad_backend/models/task.dart';
 import 'package:ammar_sajjad_backend/services/task.dart';
+import 'package:ammar_sajjad_backend/update_task.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +35,15 @@ class GetAllTaskView extends StatelessWidget {
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          UpdateTaskView(model: taskList[i])));
+                            },
+                            icon: Icon(Icons.edit)),
                         IconButton(
                             onPressed: () {
                               showDialog(
